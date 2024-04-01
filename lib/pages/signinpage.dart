@@ -4,16 +4,16 @@ import 'package:fit_flow/pages/level.dart';
 class SignInPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-   return signin();
+    return signin();
   }
-  
 }
-class signin extends State<SignInPage>{
+
+class signin extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 40),
+        SizedBox(height: 30),
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Phonenumber',
@@ -31,7 +31,7 @@ class signin extends State<SignInPage>{
             ),
           ),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
             Navigator.push(

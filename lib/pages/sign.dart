@@ -27,6 +27,8 @@ class Signin extends State<SignPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
@@ -40,13 +42,12 @@ class Signin extends State<SignPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 400),
+            padding: EdgeInsets.only(top: screenHeight * 0.43),
             child: Center(
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(33),
                         topLeft: Radius.circular(43)),
@@ -65,70 +66,74 @@ class Signin extends State<SignPage> {
                         16,
                       )
                     ], begin: Alignment.topRight, end: Alignment.bottomLeft)),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              onTap: togglesignin,
-                              child: Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: sign ? Colors.white : Colors.black),
+                child: Padding(
+                  padding: EdgeInsets.all(screenWidth * 0.03),
+                  child: Column(
+                    children: [
+                      SizedBox(height: screenHeight * 0.05),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: togglesignin,
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                      fontSize: screenWidth * 0.06,
+                                      color:
+                                          sign ? Colors.white : Colors.black),
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: signup,
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: sign ? Colors.black : Colors.white),
-                              ),
-                            )
-                          ],
+                              GestureDetector(
+                                onTap: signup,
+                                child: Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                      fontSize: screenWidth * 0.06,
+                                      color:
+                                          sign ? Colors.black : Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      height: 360,
-                      width: 390,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromARGB(
-                                255,
-                                13,
-                                13,
-                                14,
-                              ),
-                              Color.fromARGB(255, 44, 43, 139)
-                            ]),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(33),
-                            topRight: Radius.circular(33)),
+                      SizedBox(
+                        height: screenHeight * 0.05,
                       ),
-                      child: SingleChildScrollView(
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: sign ? SignInPage() : SignUpPage()),
-                      ),
-                    )
-                  ],
+                      Container(
+                        height: screenHeight * 0.4,
+                        width: screenWidth,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromARGB(
+                                  255,
+                                  13,
+                                  13,
+                                  14,
+                                ),
+                                Color.fromARGB(255, 44, 43, 139)
+                              ]),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(33),
+                              topRight: Radius.circular(33)),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                              padding: EdgeInsets.all(screenWidth * 0.03),
+                              child: sign ? SignInPage() : SignUpPage()),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

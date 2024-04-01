@@ -1,3 +1,4 @@
+import 'package:fit_flow/pages/execises.dart';
 import 'package:flutter/material.dart';
 
 class Bodypart extends StatefulWidget {
@@ -44,17 +45,26 @@ class Selectbody extends State<Bodypart> {
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 14, horizontal: 8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(33),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          const Color.fromRGBO(4, 4, 4, 1),
-                                          const Color.fromRGBO(96, 95, 116, 1),
-                                        ])),
-                                height: 120,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Exercise()));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(33),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            const Color.fromRGBO(4, 4, 4, 1),
+                                            const Color.fromRGBO(
+                                                96, 95, 116, 1),
+                                          ])),
+                                  height: 120,
+                                ),
                               ),
                             );
                           }))

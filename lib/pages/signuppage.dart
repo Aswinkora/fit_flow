@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class SignUpPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-   return signup();
+    return signup();
   }
-  
 }
-class signup extends State<SignUpPage>{
+
+class signup extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 40),
+        SizedBox(height: 30),
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Phonenumber',
@@ -30,11 +30,9 @@ class signup extends State<SignUpPage>{
             ),
           ),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () {
-           
-          },
+          onPressed: () {},
           child: Text('Sign In'),
         ),
       ],
