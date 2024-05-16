@@ -1,7 +1,9 @@
+import 'package:fit_flow/pages/bodypart.dart';
 import 'package:fit_flow/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,13 +15,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class splash extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late SharedPreferences preferences;
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage ()));
+    checklog();
+  }
+
+  Future<void> checklog() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? username = preferences.getString('username');
+    String? password = preferences.getString('password');
+
+    Future.delayed(Duration(seconds: 1), () {
+      if (username != null || password != null) {
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (_) => Bodypart()));
+      } else {
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      }
     });
   }
 
