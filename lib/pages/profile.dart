@@ -1,3 +1,5 @@
+
+
 import 'package:fit_flow/model/accountdata.dart';
 import 'package:fit_flow/pages/homepage.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +92,7 @@ class ProfileState extends State<Profile> {
         context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 }
+
 
 Widget profileItem(String label, String value, IconData icon) {
   return Container(

@@ -1,4 +1,3 @@
-
 import 'package:fit_flow/model/accountdata.dart';
 import 'package:fit_flow/pages/bodypart.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +70,7 @@ class AccountPage extends State<Account> {
                         SizedBox(
                           height: 20,
                         ),
+                   
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: namevalidate,
@@ -100,7 +100,6 @@ class AccountPage extends State<Account> {
                         ),
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          // validator: weightvalidate,
                           controller: weightcntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -112,7 +111,6 @@ class AccountPage extends State<Account> {
                           height: 20,
                         ),
                         TextFormField(
-                          // validator: uservalidate,
                           controller: usernamecntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -126,7 +124,6 @@ class AccountPage extends State<Account> {
                         TextFormField(
                           obscureText: obs,
                           maxLength: 6,
-                          // validator: passvalidate,
                           controller: passwordcntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -179,6 +176,7 @@ class AccountPage extends State<Account> {
       ],
     ));
   }
+
 
   void createaccount() async {
     if (namecntrl.text.isEmpty ||
@@ -252,7 +250,6 @@ class AccountPage extends State<Account> {
         await preferences.setString('username', user);
         await preferences.setString('password', pass);
 
-        // Clear text fields before navigating
         clear();
 
         Navigator.pushReplacement(
@@ -290,4 +287,5 @@ class AccountPage extends State<Account> {
     agecntrl.clear();
     usernamecntrl.clear();
   }
+
 }
