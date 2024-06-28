@@ -26,7 +26,7 @@ class Signin extends State<SignPage> {
               height: screenHeight / 3,
               width: screenWidth,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 30, 29, 29),
+                color: Colors.black,
                 borderRadius: BorderRadius.all(Radius.circular(33)),
               ),
               child: SignInPage(),

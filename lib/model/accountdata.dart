@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AccountModel {
   AccountModel(
       {required this.username,
+      this.imageurl,
       this.password,
       required this.name,
       required this.age,
       required this.weight});
   String name;
+  String? imageurl;
   int weight;
   int age;
   String username;
@@ -19,6 +24,7 @@ class AccountModel {
       'weight': weight,
       'username': username,
       'password': password,
+      'imageurl': imageurl
     };
   }
 }
@@ -47,6 +53,7 @@ class AccountDatabase {
         weight: userData['weight'],
         username: userData['username'],
         password: userData['password'],
+        imageurl: userData['imageurl'],
       );
     } else {
       return null;
@@ -78,5 +85,20 @@ class AccountDatabase {
       print('Error updating password: $e');
       return false;
     }
+  }
+
+  Future<String?> Uploadimage(File image) async {
+    try {
+      String filename = DateTime.now().microsecondsSinceEpoch.toString();
+      Reference reference =
+          FirebaseStorage.instance.ref().child('image/$filename');
+      UploadTask uploadTask = reference.putFile(image);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String imageurl = await taskSnapshot.ref.getDownloadURL();
+      return imageurl;
+    } catch (e) {
+      print('Error uploading image$e');
+    }
+    return null;
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:fit_flow/model/accountdata.dart';
 import 'package:fit_flow/pages/bodypart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Account extends StatefulWidget {
@@ -18,6 +22,7 @@ class AccountPage extends State<Account> {
   TextEditingController weightcntrl = TextEditingController();
   TextEditingController usernamecntrl = TextEditingController();
   TextEditingController passwordcntrl = TextEditingController();
+  File? _image;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -70,7 +75,19 @@ class AccountPage extends State<Account> {
                         SizedBox(
                           height: 20,
                         ),
-                   
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectimage();
+                            });
+                          },
+                          child: CircleAvatar(
+                            radius: 64,
+                            backgroundImage: _image == null
+                                ? AssetImage('images/profile.png')
+                                : FileImage(_image!) as ImageProvider,
+                          ),
+                        ),
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: namevalidate,
@@ -100,6 +117,7 @@ class AccountPage extends State<Account> {
                         ),
                         TextFormField(
                           keyboardType: TextInputType.number,
+                          // validator: weightvalidate,
                           controller: weightcntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -111,6 +129,7 @@ class AccountPage extends State<Account> {
                           height: 20,
                         ),
                         TextFormField(
+                          // validator: uservalidate,
                           controller: usernamecntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -124,6 +143,7 @@ class AccountPage extends State<Account> {
                         TextFormField(
                           obscureText: obs,
                           maxLength: 6,
+                          // validator: passvalidate,
                           controller: passwordcntrl,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -176,7 +196,6 @@ class AccountPage extends State<Account> {
       ],
     ));
   }
-
 
   void createaccount() async {
     if (namecntrl.text.isEmpty ||
@@ -236,6 +255,10 @@ class AccountPage extends State<Account> {
         int Age = int.parse(agecntrl.text.toString());
         String user = usernamecntrl.text;
         dynamic pass = passwordcntrl.text;
+        String? imageur;
+        if (_image != null) {
+          imageur = await AccountDatabase().Uploadimage(_image!);
+        }
 
         AccountModel newAccount = AccountModel(
           name: Name,
@@ -243,6 +266,7 @@ class AccountPage extends State<Account> {
           username: user,
           password: pass,
           weight: weigh,
+          imageurl: imageur.toString(),
         );
         AccountDatabase().senddata(newAccount);
 
@@ -250,6 +274,7 @@ class AccountPage extends State<Account> {
         await preferences.setString('username', user);
         await preferences.setString('password', pass);
 
+        // Clear text fields before navigating
         clear();
 
         Navigator.pushReplacement(
@@ -288,4 +313,20 @@ class AccountPage extends State<Account> {
     usernamecntrl.clear();
   }
 
+  Future<void> selectimage() async {
+    await Permission.storage.request();
+    if (await Permission.storage.status == PermissionStatus.granted) {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      } else {
+        print('No image selected.');
+      }
+    } else {
+      print('Storage permission denied');
+    }
+  }
 }

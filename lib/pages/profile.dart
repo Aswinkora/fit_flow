@@ -1,5 +1,3 @@
-
-
 import 'package:fit_flow/model/accountdata.dart';
 import 'package:fit_flow/pages/homepage.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
-
   @override
   State<StatefulWidget> createState() {
     return ProfileState();
@@ -50,6 +47,13 @@ class ProfileState extends State<Profile> {
               children: [
                 SizedBox(height: 20),
                 if (userdata != null) ...[
+                  CircleAvatar(
+                    backgroundImage: imageprovider(userdata!.imageurl),
+                    radius: 64,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ListTile(
                     title: profileItem('Name', userdata!.name, Icons.person),
                   ),
@@ -91,8 +95,15 @@ class ProfileState extends State<Profile> {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => HomePage()));
   }
-}
 
+  ImageProvider imageprovider(String? imageUrl) {
+    if (imageUrl == null || imageUrl.isEmpty || imageUrl == "null") {
+      return AssetImage('images/profile.png');
+    } else {
+      return NetworkImage(imageUrl);
+    }
+  }
+}
 
 Widget profileItem(String label, String value, IconData icon) {
   return Container(

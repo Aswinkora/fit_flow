@@ -107,7 +107,7 @@ class splash extends State<SplashScreen> with SingleTickerProviderStateMixin {
                       'FitFloW',
                       style: TextStyle(
                         fontSize: 60.0,
-                        color: Colors.white, // This color will be ignored
+                        color: Colors.white, 
                         fontFamily: 'DancingScript',
                       ),
                     ),
@@ -115,10 +115,10 @@ class splash extends State<SplashScreen> with SingleTickerProviderStateMixin {
                 ),
                 Icon(
                   FontAwesomeIcons
-                      .dumbbell, // Use FontAwesomeIcons for dumbbell icon
+                      .dumbbell, 
                   size: 200.0,
                   color: Color.fromARGB(
-                      69, 106, 100, 124), // Orange color for the icon
+                      69, 106, 100, 124),
                 ),
               ],
             ),
